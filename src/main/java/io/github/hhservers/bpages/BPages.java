@@ -1,9 +1,9 @@
-package io.github.hhservers.bstarter;
+package io.github.hhservers.bpages;
 
 import com.google.inject.Inject;
-import io.github.hhservers.bstarter.commands.Base;
-import io.github.hhservers.bstarter.config.ConfigHandler;
-import io.github.hhservers.bstarter.config.MainPluginConfig;
+import io.github.hhservers.bpages.commands.Base;
+import io.github.hhservers.bpages.config.ConfigHandler;
+import io.github.hhservers.bpages.config.MainPluginConfig;
 import lombok.Getter;
 import ninja.leaping.configurate.objectmapping.GuiceObjectMapperFactory;
 import ninja.leaping.configurate.objectmapping.ObjectMappingException;
@@ -21,17 +21,17 @@ import java.io.File;
 import java.io.IOException;
 
 @Plugin(
-        id = "bstarter",
-        name = "BStarter",
-        description = "Starter plugin",
+        id = "bpages",
+        name = "BPages",
+        description = "Pages plugin",
         authors = {
                 "blvxr"
         }
 )
-public class BStarter {
+public class BPages {
 
     @Getter
-    private static BStarter instance;
+    private static BPages instance;
     @Getter
     @Inject
     private Logger logger;
@@ -43,7 +43,7 @@ public class BStarter {
 
 
     @Inject
-    public BStarter(GuiceObjectMapperFactory factory, @ConfigDir(sharedRoot = false) File configDir) {
+    public BPages(GuiceObjectMapperFactory factory, @ConfigDir(sharedRoot = false) File configDir) {
         this.factory=factory;
         this.configDir=configDir;
         instance=this;
