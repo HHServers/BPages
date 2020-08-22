@@ -48,6 +48,7 @@ public class Base implements CommandExecutor {
        return CommandSpec.builder()
                 .arguments(GenericArguments.optional(GenericArguments.string(Text.of("pageID"))))
                 .permission("bpages.user.base")
+                .child(Reload.build(), "reload")
                 .description(Text.of("Base command"))
                 .executor(new Base())
                 .build();
