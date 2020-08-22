@@ -29,7 +29,7 @@ import java.util.Map;
         id = "bpages",
         name = "BPages",
         description = "Pages plugin",
-        version = "1.0",
+        version = "1.1",
         authors = {
                 "blvxr"
         }
