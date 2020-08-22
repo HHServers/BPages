@@ -4,6 +4,7 @@ import com.google.inject.Inject;
 import io.github.hhservers.bpages.commands.Base;
 import io.github.hhservers.bpages.config.ConfigHandler;
 import io.github.hhservers.bpages.config.MainPluginConfig;
+import io.github.hhservers.bpages.util.PageBuilder;
 import lombok.Getter;
 import ninja.leaping.configurate.objectmapping.GuiceObjectMapperFactory;
 import ninja.leaping.configurate.objectmapping.ObjectMappingException;
@@ -16,14 +17,19 @@ import org.spongepowered.api.event.game.state.GamePreInitializationEvent;
 import org.spongepowered.api.event.game.state.GameStartedServerEvent;
 import org.spongepowered.api.event.Listener;
 import org.spongepowered.api.plugin.Plugin;
+import org.spongepowered.api.service.pagination.PaginationList;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Plugin(
         id = "bpages",
         name = "BPages",
         description = "Pages plugin",
+        version = "1.0",
         authors = {
                 "blvxr"
         }
@@ -40,6 +46,7 @@ public class BPages {
     private final GuiceObjectMapperFactory factory;
     private final File configDir;
     private static ConfigHandler configHandler;
+    public static Map<String, PaginationList> pageMap = new HashMap<>();
 
 
     @Inject
@@ -57,11 +64,12 @@ public class BPages {
     @Listener
     public void onGameInit(GameInitializationEvent e){
         instance = this;
-        Sponge.getCommandManager().register(instance, Base.build(), "base");
+        Sponge.getCommandManager().register(instance, Base.build(), "page");
     }
 
     @Listener
     public void onServerStart(GameStartedServerEvent event) {
+        new PageBuilder().buildPage();
     }
 
     @Listener
