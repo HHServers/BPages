@@ -75,6 +75,8 @@ public class BPages {
     @Listener
     public void onGameReload(GameReloadEvent e) throws IOException, ObjectMappingException {
         reloadConfig();
+        pageMap.clear();
+        new PageBuilder().buildPage();
     }
 
     public void reloadConfig() throws IOException, ObjectMappingException {
