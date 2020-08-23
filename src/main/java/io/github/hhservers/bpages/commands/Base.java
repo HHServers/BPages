@@ -13,6 +13,7 @@ import org.spongepowered.api.command.spec.CommandSpec;
 import org.spongepowered.api.service.pagination.PaginationList;
 import org.spongepowered.api.text.Text;
 import org.spongepowered.api.text.action.TextActions;
+import org.spongepowered.api.text.format.TextColors;
 import org.spongepowered.api.text.serializer.TextSerializers;
 
 import javax.swing.text.TextAction;
@@ -25,7 +26,9 @@ public class Base implements CommandExecutor {
     public CommandResult execute(CommandSource src, CommandContext args) throws CommandException {
         if(args.hasAny(Text.of("pageID"))){
             String pageID = args.<String>getOne(Text.of("pageID")).get().toLowerCase();
-            BPages.pageMap.get(pageID).sendTo(src);
+            if(src.hasPermission("bpages.page."+pageID)) {
+                BPages.pageMap.get(pageID).sendTo(src);
+            } else {src.sendMessage(Text.of(TextColors.RED, "You do not have permission to view this Page!"));}
         } else {
             List<Text> textList = new ArrayList<>();
             for(PageObject obj : BPages.getMainPluginConfig().getPageList()){
