@@ -11,7 +11,33 @@ import java.util.List;
 @ConfigSerializable @Data
 public class MainPluginConfig {
 
-    @Setting(value = "pageList")
-    private List<PageObject> pageList = Arrays.asList(new PageObject());
+    @Setting(value = "mainCommandAlias")
+    private String commandAlias = "page";
+
+    @Setting(value = "mainPagePadding")
+    private String mainPagePadding = "&6=";
+
+    @Setting(value = "mainPageTitle")
+    private String mainPageTitle = "&l&8[&r&dB&aPages&l&8]&r";
+
+    @Setting(value = "mainPagePrefix")
+    private String mainPagePrefix = "&l&8-&r&b";
+
+    @Setting(value = "mainLinesPerPage")
+    private int mainLinesPerPage = 10;
+
+    @Setting(value = "pageListNode")
+    private MainPluginConfig.PageList pageListNode = new PageList();
+
+
+    @ConfigSerializable @Data
+    public static class PageList {
+
+        @Setting(value = "pageList")
+        private List<PageObject> pageList = Arrays.asList(new PageObject());
+
+    }
+
+
 
 }

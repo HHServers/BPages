@@ -64,7 +64,7 @@ public class BPages {
     @Listener
     public void onGameInit(GameInitializationEvent e){
         instance = this;
-        Sponge.getCommandManager().register(instance, Base.build(), "page");
+        Sponge.getCommandManager().register(instance, Base.build(), getMainPluginConfig().getCommandAlias());
     }
 
     @Listener
@@ -80,6 +80,7 @@ public class BPages {
     }
 
     public void reloadConfig() throws IOException, ObjectMappingException {
+        //Sponge.getCommandManager().register(instance, Base.build(), getMainPluginConfig().getCommandAlias());
         configHandler=new ConfigHandler(this);
         if (configHandler.loadConfig()) {mainPluginConfig = configHandler.getPluginConf();}
     }

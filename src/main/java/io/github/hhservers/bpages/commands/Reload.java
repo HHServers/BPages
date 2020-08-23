@@ -27,6 +27,7 @@ public class Reload implements CommandExecutor {
         BPages.getInstance().reloadConfig();
         BPages.pageMap.clear();
         new PageBuilder().buildPage();
+        src.sendMessage(TextSerializers.FORMATTING_CODE.deserialize("&l&8[&r&dB&aPages&r&l&8]&r Config reloaded"));
         return CommandResult.success();
     }
 

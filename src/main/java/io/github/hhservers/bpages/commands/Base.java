@@ -1,6 +1,7 @@
 package io.github.hhservers.bpages.commands;
 
 import io.github.hhservers.bpages.BPages;
+import io.github.hhservers.bpages.config.MainPluginConfig;
 import io.github.hhservers.bpages.util.PageObject;
 import org.apache.commons.lang3.text.WordUtils;
 import org.spongepowered.api.command.CommandException;
@@ -24,6 +25,7 @@ import java.util.Optional;
 public class Base implements CommandExecutor {
     @Override
     public CommandResult execute(CommandSource src, CommandContext args) throws CommandException {
+        MainPluginConfig conf = BPages.getMainPluginConfig();
         if(args.hasAny(Text.of("pageID"))){
             String pageID = args.<String>getOne(Text.of("pageID")).get().toLowerCase();
             if(src.hasPermission("bpages.page."+pageID)) {
@@ -31,17 +33,18 @@ public class Base implements CommandExecutor {
             } else {src.sendMessage(Text.of(TextColors.RED, "You do not have permission to view this Page!"));}
         } else {
             List<Text> textList = new ArrayList<>();
-            for(PageObject obj : BPages.getMainPluginConfig().getPageList()){
+            for(PageObject obj : conf.getPageListNode().getPageList()){
                 String s = WordUtils.capitalize(obj.getCommandAlias());
-                textList.add(TextSerializers.FORMATTING_CODE.deserialize("&l&8-&r&b"+s).toBuilder()
+                textList.add(TextSerializers.FORMATTING_CODE.deserialize(conf.getMainPagePrefix()+s).toBuilder()
                 .onHover(TextActions.showText(Text.of("Click me to open this page")))
-                .onClick(TextActions.runCommand("/page "+obj.getCommandAlias()))
+                .onClick(TextActions.runCommand("/"+conf.getCommandAlias()+" "+obj.getCommandAlias()))
                 .build());
             }
             PaginationList.builder()
-                    .title(TextSerializers.FORMATTING_CODE.deserialize("&l&8[&r&bPages&r&l&8]&r"))
+                    .title(TextSerializers.FORMATTING_CODE.deserialize(conf.getMainPageTitle()))
                     .contents(textList)
-                    .padding(TextSerializers.FORMATTING_CODE.deserialize("&l&8="))
+                    .padding(TextSerializers.FORMATTING_CODE.deserialize(conf.getMainPagePadding()))
+                    .linesPerPage(conf.getMainLinesPerPage())
                     .sendTo(src);
         }
         return CommandResult.success();

@@ -13,7 +13,7 @@ public class PageBuilder {
 
     public void buildPage(){
         MainPluginConfig conf = BPages.getMainPluginConfig();
-        List<PageObject> pageList = conf.getPageList();
+        List<PageObject> pageList = conf.getPageListNode().getPageList();
         for(PageObject obj : pageList){
             List<Text> textList = new ArrayList<>();
             for(String s : obj.getContent()){
