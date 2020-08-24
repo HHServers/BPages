@@ -34,6 +34,7 @@ public class Base implements CommandExecutor {
         } else {
             List<Text> textList = new ArrayList<>();
             for(PageObject obj : conf.getPageListNode().getPageList()){
+                if(src.hasPermission("bpages.page."+obj.getCommandAlias())){
                 String s = WordUtils.capitalize(obj.getCommandAlias());
                 textList.add(TextSerializers.FORMATTING_CODE.deserialize(conf.getMainPagePrefix()+s).toBuilder()
                 .onHover(TextActions.showText(Text.of("Click me to open this page")))
@@ -46,7 +47,7 @@ public class Base implements CommandExecutor {
                     .padding(TextSerializers.FORMATTING_CODE.deserialize(conf.getMainPagePadding()))
                     .linesPerPage(conf.getMainLinesPerPage())
                     .sendTo(src);
-        }
+        }}
         return CommandResult.success();
     }
 
