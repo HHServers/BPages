@@ -46,7 +46,8 @@ public class BPages {
     private final GuiceObjectMapperFactory factory;
     private final File configDir;
     private static ConfigHandler configHandler;
-    public static Map<String, PaginationList> pageMap = new HashMap<>();
+    @Getter
+    private Map<String, PaginationList> pageMap = new HashMap<>();
 
 
     @Inject

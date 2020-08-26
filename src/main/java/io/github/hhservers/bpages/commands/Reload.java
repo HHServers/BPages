@@ -24,8 +24,8 @@ public class Reload implements CommandExecutor {
     @SneakyThrows
     @Override
     public CommandResult execute(CommandSource src, CommandContext args) throws CommandException {
+        BPages.getInstance().getPageMap().clear();
         BPages.getInstance().reloadConfig();
-        BPages.pageMap.clear();
         new PageBuilder().buildPage();
         src.sendMessage(TextSerializers.FORMATTING_CODE.deserialize("&l&8[&r&dB&aPages&r&l&8]&r Config reloaded"));
         return CommandResult.success();

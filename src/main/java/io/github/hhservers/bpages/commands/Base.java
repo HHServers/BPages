@@ -29,7 +29,7 @@ public class Base implements CommandExecutor {
         if(args.hasAny(Text.of("pageID"))){
             String pageID = args.<String>getOne(Text.of("pageID")).get().toLowerCase();
             if(src.hasPermission("bpages.page."+pageID)) {
-                BPages.pageMap.get(pageID).sendTo(src);
+                BPages.getInstance().getPageMap().get(pageID).sendTo(src);
             } else {src.sendMessage(Text.of(TextColors.RED, "You do not have permission to view this Page!"));}
         } else {
             List<Text> textList = new ArrayList<>();
@@ -40,14 +40,14 @@ public class Base implements CommandExecutor {
                 .onHover(TextActions.showText(Text.of("Click me to open this page")))
                 .onClick(TextActions.runCommand("/"+conf.getCommandAlias()+" "+obj.getCommandAlias()))
                 .build());
-            }
+            }}
             PaginationList.builder()
                     .title(TextSerializers.FORMATTING_CODE.deserialize(conf.getMainPageTitle()))
                     .contents(textList)
                     .padding(TextSerializers.FORMATTING_CODE.deserialize(conf.getMainPagePadding()))
                     .linesPerPage(conf.getMainLinesPerPage())
                     .sendTo(src);
-        }}
+        }
         return CommandResult.success();
     }
 

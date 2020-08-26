@@ -19,7 +19,7 @@ public class PageBuilder {
             for(String s : obj.getContent()){
                 textList.add(TextSerializers.FORMATTING_CODE.deserialize(s));
             }
-            BPages.pageMap.put(obj.getCommandAlias().toLowerCase(), PaginationList.builder()
+            BPages.getInstance().getPageMap().put(obj.getCommandAlias().toLowerCase(), PaginationList.builder()
                     .contents(textList)
                     .padding(TextSerializers.FORMATTING_CODE.deserialize(obj.getPadding()))
                     .linesPerPage(obj.getLinesPerPage())
